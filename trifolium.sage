@@ -1,3 +1,5 @@
+
+
 reset()
 from sage.plot.circle import Circle
 from sage.plot.arc import Arc
@@ -200,5 +202,6 @@ for t in range(interval+1):
     frames.append(circles+crank(tp)+wheel2(tp)+chain+arm+arm2+curve)
 
 a = animate(frames, aspect_ratio=1, xmin=-window, xmax=window, ymin=-window, ymax=window)
-a.show()
-frames[-1].show()
+# a.show()
+# frames[-1].show()
+a.save(filename='trifolium.gif')
