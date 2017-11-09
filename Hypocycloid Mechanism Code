@@ -1,3 +1,6 @@
+# Authors: Jacob Krol and Amy Herz
+# Faculty Supervisor: Jan Verschelde
+
 reset()
 from sage.plot.circle import Circle
 from sage.plot.arc import Arc
