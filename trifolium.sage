@@ -1,4 +1,6 @@
-
+# Wikipedia Illustration Task Force
+# Authors: Amy Herz and Jacob Krol
+# Faculty Supervisor: Jan Verschelde
 
 reset()
 from sage.plot.circle import Circle
