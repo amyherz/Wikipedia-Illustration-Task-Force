@@ -1,3 +1,4 @@
+# Wikipedia Illustration Task Force
 # Authors: Jacob Krol and Amy Herz
 # Faculty Supervisor: Jan Verschelde
 
@@ -143,5 +144,6 @@ for t in range(2*interval+1):
     frames.append(circles+crank(tp)+wheel2(tp)+chain+arm+arm2+curve)
 
 a = animate(frames, aspect_ratio=1, xmin=-window, xmax=window, ymin=-window, ymax=window)
-a.show()
-frames[-1].show()
+# a.show()
+# frames[-1].show()
+a.save(filename='hypocycloid.gif')
