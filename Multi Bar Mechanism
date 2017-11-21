@@ -1,0 +1,162 @@
+from sage.plot.circle import Circle
+from sage.plot.arc import Arc
+
+def wheel1(t):
+    centerx = cx
+    centery = cy
+    pointx = r1 * cos(t+p1) + centerx
+    pointy = r1 * sin(t+p1) + centery
+    return [centerx, centery, pointx, pointy, t+p1]
+
+def wheel2(t):
+    prev = wheel1(t)
+    centerx = a1 * cos(t+p1) + prev[0]
+    centery = a1 * sin(t+p1) + prev[1]
+    pointx = r2 * cos(-r2/r1*t+p2) + centerx
+    pointy = r2 * sin(-r2/r1*t+p2) + centery
+    return [centerx, centery, pointx, pointy, -r2/r1*t+p2]
+
+def wheel3(t):
+    prev = wheel2(t)
+    centerx = a2 * cos(-r2/r1*t+p2) + prev[0]
+    centery = a2 * sin(-r2/r1*t+p2) + prev[1]
+    pointx = r3 * cos(r3/r2/r1*t+p3) + centerx
+    pointy = r3 * sin(r3/r2/r1*t+p3) + centery
+    return [centerx, centery, pointx, pointy, r3/r2/r1*t+p3]
+
+def wheel4(t):
+    prev = wheel3(t)
+    centerx = a3 * cos(r3/r2/r1*t+p3) + prev[0]
+    centery = a4 * sin(r3/r2/r1*t+p3) + prev[1]
+    pointx = r4 * cos(-r4/r3/r2/r1*t+p4) + centerx
+    pointy = r4 * sin(-r4/r3/r2/r1*t+p4) + centery
+    return [centerx, centery, pointx, pointy, -r4/r3/r2/r1*t+p4]
+
+def cursor(t):
+    prev = wheel4(t)
+    centerx = a4 * cos(-r4/r3/r2/r1*t+p4) + prev[0]
+    centery = a4 * sin(-r4/r3/r2/r1*t+p4) + prev[1]
+    return [centerx, centery]
+
+def DrawArm1(t):
+    one = wheel1(t)
+    two = wheel2(t)
+    phi = one[4]
+
+    armtop = line([ (one[0]+0.1*cos(phi+pi/2), one[1]+0.1*sin(phi+pi/2)), (two[0]+0.1*cos(phi+pi/2), two[1]+0.1*sin(phi+pi/2)) ])
+    armbottom = line([ (one[0]+0.1*cos(phi-pi/2), one[1]+0.1*sin(phi-pi/2)), (two[0]+0.1*cos(phi-pi/2), two[1]+0.1*sin(phi-pi/2)) ])
+    ends = arc((one[0],one[1]), 0.1, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), 0.1, sector=(phi-pi/2,phi+pi/2))
+    arm = armtop+armbottom+ends
+    return arm
+
+def DrawArm2(t):
+    one = wheel2(t)
+    two = wheel3(t)
+    phi = one[4]
+
+    armtop = line([ (one[0]+0.1*cos(phi+pi/2), one[1]+0.1*sin(phi+pi/2)), (two[0]+0.1*cos(phi+pi/2), two[1]+0.1*sin(phi+pi/2)) ])
+    armbottom = line([ (one[0]+0.1*cos(phi-pi/2), one[1]+0.1*sin(phi-pi/2)), (two[0]+0.1*cos(phi-pi/2), two[1]+0.1*sin(phi-pi/2)) ])
+    ends = arc((one[0],one[1]), 0.1, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), 0.1, sector=(phi-pi/2,phi+pi/2))
+    arm = armtop+armbottom+ends
+    return arm
+
+def DrawArm3(t):
+    one = wheel3(t)
+    two = wheel4(t)
+    phi = one[4]
+
+    armtop = line([ (one[0]+0.1*cos(phi+pi/2), one[1]+0.1*sin(phi+pi/2)), (two[0]+0.1*cos(phi+pi/2), two[1]+0.1*sin(phi+pi/2)) ])
+    armbottom = line([ (one[0]+0.1*cos(phi-pi/2), one[1]+0.1*sin(phi-pi/2)), (two[0]+0.1*cos(phi-pi/2), two[1]+0.1*sin(phi-pi/2)) ])
+    ends = arc((one[0],one[1]), 0.1, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), 0.1, sector=(phi-pi/2,phi+pi/2))
+    arm = armtop+armbottom+ends
+    return arm
+
+def DrawArm4(t):
+    one = wheel4(t)
+    two = cursor(t)
+    phi = one[4]
+
+    armtop = line([ (one[0]+0.1*cos(phi+pi/2), one[1]+0.1*sin(phi+pi/2)), (two[0]+0.1*cos(phi+pi/2), two[1]+0.1*sin(phi+pi/2)) ])
+    armbottom = line([ (one[0]+0.1*cos(phi-pi/2), one[1]+0.1*sin(phi-pi/2)), (two[0]+0.1*cos(phi-pi/2), two[1]+0.1*sin(phi-pi/2)) ])
+    ends = arc((one[0],one[1]), 0.1, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), 0.1, sector=(phi-pi/2,phi+pi/2))
+    arm = armtop+armbottom+ends
+    return arm
+
+def DrawWheels(t):
+    #wheel 1
+    w = wheel1(t)
+    cir = circle( (w[0],w[1]), r1)
+    pnt = point( (w[2],w[3]), size=20, color='orange')
+    crk = line( [ (w[0],w[1]), (w[2],w[3]) ], color = 'orange')
+    fig1 = cir + pnt + crk
+    #wheel 2
+    w = wheel2(t)
+    cir = circle( (w[0],w[1]), r2)
+    pnt = point( (w[2],w[3]), size=20, color='orange')
+    crk = line( [ (w[0],w[1]), (w[2],w[3]) ], color = 'orange')
+    fig2 = cir + pnt + crk
+    #wheel 3
+    w = wheel3(t)
+    cir = circle( (w[0],w[1]), r3)
+    pnt = point( (w[2],w[3]), size=20, color='orange')
+    crk = line( [ (w[0],w[1]), (w[2],w[3]) ], color = 'orange')
+    fig3 = cir + pnt + crk
+    #wheel 4
+    w = wheel4(t)
+    cir = circle( (w[0],w[1]), r4)
+    pnt = point( (w[2],w[3]), size=20, color='orange')
+    crk = line( [ (w[0],w[1]), (w[2],w[3]) ], color = 'orange')
+    fig4 = cir + pnt + crk
+
+    return fig1 + fig2 + fig3 + fig4
+
+def DrawChains(t):
+    pass
+
+def SavePoint(t):
+    Points.append(cursor(t))
+
+def DrawCurve(t, curve, i):
+    if i>0:
+        partcurve = line([ (Points[i-1][0],Points[i-1][1]), (Points[i][0],Points[i][1]) ], color='green')
+    else:
+        partcurve = line([(0,0),(0,0)])
+    curve += partcurve
+    return curve
+
+frames = []
+curve = line([(0,0),(0,0)])
+Points = []
+#vars = [a1,a2,a3,a4,p1,p2,p3,p4,r1,r2,r3,r4,interval,revs,cx,cy]
+vars = [3,2,3,2,0,0,0,0,1,0.7,0.5,0.4,60,4,0,0]
+#Enter these values for the paper's 4 bar Y shape: 138.90,169.68,103.63,103.63,-1.43,2.81,0.98,0.98
+a1 = vars[0]
+a2 = vars[1]
+a3 = vars[2]
+a4 = vars[3]
+p1 = vars[4]
+p2 = vars[5]
+p3 = vars[6]
+p4 = vars[7]
+r1 = vars[8]
+r2 = vars[9]
+r3 = vars[10]
+r4 = vars[11]
+interval = vars[12] # 97 ~= 1 min, 47 ~= 30 sec
+revs = 2*pi*vars[13]
+cx = vars[14]
+cy = vars[15]
+window = a1 + a2 + a3 + a4
+
+for t in range(interval+1):
+    tp = revs*t/interval
+    SavePoint(tp)
+    curve = DrawCurve(tp, curve, t)
+    circles = DrawWheels(tp)
+    #chains = DrawChains(tp)
+    arms = DrawArm1(tp) + DrawArm2(tp) + DrawArm3(tp) + DrawArm4(tp)
+    frames.append(circles+arms+curve)
+
+a = animate(frames, aspect_ratio=1, xmin=-window, xmax=window, ymin=-window, ymax=window)
+a.show()
+for i in range(interval+1): frames[i].show()
