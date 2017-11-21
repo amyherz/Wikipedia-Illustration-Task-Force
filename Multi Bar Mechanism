@@ -43,9 +43,9 @@ def DrawArm1(t):
     two = wheel2(t)
     phi = one[4]
 
-    armtop = line([ (one[0]+0.1*cos(phi+pi/2), one[1]+0.1*sin(phi+pi/2)), (two[0]+0.1*cos(phi+pi/2), two[1]+0.1*sin(phi+pi/2)) ])
-    armbottom = line([ (one[0]+0.1*cos(phi-pi/2), one[1]+0.1*sin(phi-pi/2)), (two[0]+0.1*cos(phi-pi/2), two[1]+0.1*sin(phi-pi/2)) ])
-    ends = arc((one[0],one[1]), 0.1, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), 0.1, sector=(phi-pi/2,phi+pi/2))
+    armtop = line([ (one[0]+wid*cos(phi+pi/2), one[1]+wid*sin(phi+pi/2)), (two[0]+wid*cos(phi+pi/2), two[1]+wid*sin(phi+pi/2)) ])
+    armbottom = line([ (one[0]+wid*cos(phi-pi/2), one[1]+wid*sin(phi-pi/2)), (two[0]+wid*cos(phi-pi/2), two[1]+wid*sin(phi-pi/2)) ])
+    ends = arc((one[0],one[1]), wid, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), wid, sector=(phi-pi/2,phi+pi/2))
     arm = armtop+armbottom+ends
     return arm
 
@@ -54,9 +54,9 @@ def DrawArm2(t):
     two = wheel3(t)
     phi = one[4]
 
-    armtop = line([ (one[0]+0.1*cos(phi+pi/2), one[1]+0.1*sin(phi+pi/2)), (two[0]+0.1*cos(phi+pi/2), two[1]+0.1*sin(phi+pi/2)) ])
-    armbottom = line([ (one[0]+0.1*cos(phi-pi/2), one[1]+0.1*sin(phi-pi/2)), (two[0]+0.1*cos(phi-pi/2), two[1]+0.1*sin(phi-pi/2)) ])
-    ends = arc((one[0],one[1]), 0.1, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), 0.1, sector=(phi-pi/2,phi+pi/2))
+    armtop = line([ (one[0]+wid*cos(phi+pi/2), one[1]+wid*sin(phi+pi/2)), (two[0]+wid*cos(phi+pi/2), two[1]+wid*sin(phi+pi/2)) ])
+    armbottom = line([ (one[0]+wid*cos(phi-pi/2), one[1]+wid*sin(phi-pi/2)), (two[0]+wid*cos(phi-pi/2), two[1]+wid*sin(phi-pi/2)) ])
+    ends = arc((one[0],one[1]), wid, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), wid, sector=(phi-pi/2,phi+pi/2))
     arm = armtop+armbottom+ends
     return arm
 
@@ -65,9 +65,9 @@ def DrawArm3(t):
     two = wheel4(t)
     phi = one[4]
 
-    armtop = line([ (one[0]+0.1*cos(phi+pi/2), one[1]+0.1*sin(phi+pi/2)), (two[0]+0.1*cos(phi+pi/2), two[1]+0.1*sin(phi+pi/2)) ])
-    armbottom = line([ (one[0]+0.1*cos(phi-pi/2), one[1]+0.1*sin(phi-pi/2)), (two[0]+0.1*cos(phi-pi/2), two[1]+0.1*sin(phi-pi/2)) ])
-    ends = arc((one[0],one[1]), 0.1, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), 0.1, sector=(phi-pi/2,phi+pi/2))
+    armtop = line([ (one[0]+wid*cos(phi+pi/2), one[1]+wid*sin(phi+pi/2)), (two[0]+wid*cos(phi+pi/2), two[1]+wid*sin(phi+pi/2)) ])
+    armbottom = line([ (one[0]+wid*cos(phi-pi/2), one[1]+wid*sin(phi-pi/2)), (two[0]+wid*cos(phi-pi/2), two[1]+wid*sin(phi-pi/2)) ])
+    ends = arc((one[0],one[1]), wid, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), wid, sector=(phi-pi/2,phi+pi/2))
     arm = armtop+armbottom+ends
     return arm
 
@@ -76,9 +76,9 @@ def DrawArm4(t):
     two = cursor(t)
     phi = one[4]
 
-    armtop = line([ (one[0]+0.1*cos(phi+pi/2), one[1]+0.1*sin(phi+pi/2)), (two[0]+0.1*cos(phi+pi/2), two[1]+0.1*sin(phi+pi/2)) ])
-    armbottom = line([ (one[0]+0.1*cos(phi-pi/2), one[1]+0.1*sin(phi-pi/2)), (two[0]+0.1*cos(phi-pi/2), two[1]+0.1*sin(phi-pi/2)) ])
-    ends = arc((one[0],one[1]), 0.1, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), 0.1, sector=(phi-pi/2,phi+pi/2))
+    armtop = line([ (one[0]+wid*cos(phi+pi/2), one[1]+wid*sin(phi+pi/2)), (two[0]+wid*cos(phi+pi/2), two[1]+wid*sin(phi+pi/2)) ])
+    armbottom = line([ (one[0]+wid*cos(phi-pi/2), one[1]+wid*sin(phi-pi/2)), (two[0]+wid*cos(phi-pi/2), two[1]+wid*sin(phi-pi/2)) ])
+    ends = arc((one[0],one[1]), wid, sector=(phi+pi/2,phi+3*pi/2))+arc((two[0],two[1]), wid, sector=(phi-pi/2,phi+pi/2))
     arm = armtop+armbottom+ends
     return arm
 
@@ -127,9 +127,10 @@ def DrawCurve(t, curve, i):
 frames = []
 curve = line([(0,0),(0,0)])
 Points = []
-#vars = [a1,a2,a3,a4,p1,p2,p3,p4,r1,r2,r3,r4,interval,revs,cx,cy]
-vars = [3,2,3,2,0,0,0,0,1,0.7,0.5,0.4,60,4,0,0]
-#Enter these values for the paper's 4 bar Y shape: 138.90,169.68,103.63,103.63,-1.43,2.81,0.98,0.98
+#vars = [a1,a2,a3,a4,p1,p2,p3,p4,r1,r2,r3,r4,wid,interval,revs,cx,cy]
+vars = [3,2,3,2,0,0,0,0,1,0.7,0.5,0.4,0.1,60,4,0,0]
+#Enter these values for the paper's 4 bar Y shape: ]138.90,169.68,103.63,103.63,-1.43,2.81,0.98,0.98,50,35,25,20,6,60,4,0,0]
+#Enter these values for a normal reset of the shape: [3,2,3,2,0,0,0,0,1,0.7,0.5,0.4,0.1,60,4,0,0]
 a1 = vars[0]
 a2 = vars[1]
 a3 = vars[2]
@@ -142,10 +143,11 @@ r1 = vars[8]
 r2 = vars[9]
 r3 = vars[10]
 r4 = vars[11]
-interval = vars[12] # 97 ~= 1 min, 47 ~= 30 sec
-revs = 2*pi*vars[13]
-cx = vars[14]
-cy = vars[15]
+wid = vars[12]
+interval = vars[13] # 97 ~= 1 min, 47 ~= 30 sec
+revs = 2*pi*vars[14]
+cx = vars[15]
+cy = vars[16]
 window = a1 + a2 + a3 + a4
 
 for t in range(interval+1):
