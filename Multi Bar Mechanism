@@ -27,7 +27,7 @@ def wheel3(t):
 def wheel4(t):
     prev = wheel3(t)
     centerx = a3 * cos(r3/r2/r1*t+p3) + prev[0]
-    centery = a4 * sin(r3/r2/r1*t+p3) + prev[1]
+    centery = a3 * sin(r3/r2/r1*t+p3) + prev[1]
     pointx = r4 * cos(-r4/r3/r2/r1*t+p4) + centerx
     pointy = r4 * sin(-r4/r3/r2/r1*t+p4) + centery
     return [centerx, centery, pointx, pointy, -r4/r3/r2/r1*t+p4]
@@ -111,7 +111,55 @@ def DrawWheels(t):
     return fig1 + fig2 + fig3 + fig4
 
 def DrawChains(t):
-    pass
+    #wheel 1 - 2
+    one = wheel1(t)
+    two = wheel2(t)
+    d = sqrt((one[0]-two[0])^2 + (one[1]-two[1])^2)
+    theta = arccos((r1-r2)/d)
+    l = sqrt(d^2 + r2^2 - 2*d*r2*cos(pi-theta))
+    gamma = arcsin((r2*sin(pi-theta))/l)
+    
+    Pa = (one[0]+r1*cos(theta+one[4]), one[1]+r1*sin(theta+one[4]))
+    Pb = (one[0]+l*cos(one[4]+gamma), one[1]+l*sin(one[4]+gamma))
+    Qa = (one[0]+r1*cos(one[4]-theta), one[1]+r1*sin(one[4]-theta))
+    Qb = (one[0]+l*cos(one[4]-gamma), one[1]+l*sin(one[4]-gamma))
+    top = line([ Pa,Pb ], color='black')
+    bottom = line([ Qa,Qb ], color='black')
+    fig1 = top+bottom
+    
+    #wheel 2 - 3
+    one = wheel2(t)
+    two = wheel3(t)
+    d = sqrt((one[0]-two[0])^2 + (one[1]-two[1])^2)
+    theta = arccos((r2-r3)/d)
+    l = sqrt(d^2 + r3^2 - 2*d*r3*cos(pi-theta))
+    gamma = arcsin((r3*sin(pi-theta))/l)
+    
+    Pa = (one[0]+r2*cos(theta+one[4]), one[1]+r2*sin(theta+one[4]))
+    Pb = (one[0]+l*cos(one[4]+gamma), one[1]+l*sin(one[4]+gamma))
+    Qa = (one[0]+r2*cos(one[4]-theta), one[1]+r2*sin(one[4]-theta))
+    Qb = (one[0]+l*cos(one[4]-gamma), one[1]+l*sin(one[4]-gamma))
+    top = line([ Pa,Pb ], color='black')
+    bottom = line([ Qa,Qb ], color='black')
+    fig2 = top+bottom
+    
+    #wheel 3 - 4
+    one = wheel3(t)
+    two = wheel4(t)
+    d = sqrt((one[0]-two[0])^2 + (one[1]-two[1])^2)
+    theta = arccos((r3-r4)/d)
+    l = sqrt(d^2 + r4^2 - 2*d*r4*cos(pi-theta))
+    gamma = arcsin((r4*sin(pi-theta))/l)
+    
+    Pa = (one[0]+r3*cos(theta+one[4]), one[1]+r3*sin(theta+one[4]))
+    Pb = (one[0]+l*cos(one[4]+gamma), one[1]+l*sin(one[4]+gamma))
+    Qa = (one[0]+r3*cos(one[4]-theta), one[1]+r3*sin(one[4]-theta))
+    Qb = (one[0]+l*cos(one[4]-gamma), one[1]+l*sin(one[4]-gamma))
+    top = line([ Pa,Pb ], color='black')
+    bottom = line([ Qa,Qb ], color='black')
+    fig3 = top+bottom
+    
+    return fig1+fig2+fig3
 
 def SavePoint(t):
     Points.append(cursor(t))
@@ -155,9 +203,9 @@ for t in range(interval+1):
     SavePoint(tp)
     curve = DrawCurve(tp, curve, t)
     circles = DrawWheels(tp)
-    #chains = DrawChains(tp)
+    chains = DrawChains(tp)
     arms = DrawArm1(tp) + DrawArm2(tp) + DrawArm3(tp) + DrawArm4(tp)
-    frames.append(circles+arms+curve)
+    frames.append(circles+arms+chains+curve)
 
 a = animate(frames, aspect_ratio=1, xmin=-window, xmax=window, ymin=-window, ymax=window)
 a.show()
